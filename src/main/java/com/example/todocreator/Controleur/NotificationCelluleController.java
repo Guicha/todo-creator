@@ -1,24 +1,21 @@
 package com.example.todocreator.Controleur;
 
-import java.io.IOException;
-
 import com.example.todocreator.MainApplication;
 import com.example.todocreator.Modele.Priorite;
 import com.example.todocreator.Modele.Statut;
 import com.example.todocreator.Modele.Tache;
-import com.example.todocreator.Vue.FenetreDialogVue;
-import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-public class TacheCelluleController extends ListCell<Tache> {
+import java.io.IOException;
+
+public class NotificationCelluleController extends ListCell<Tache> {
 
     private Tache tache;
 
@@ -43,9 +40,9 @@ public class TacheCelluleController extends ListCell<Tache> {
     @FXML
     private Text descriptionText; // Pour afficher la description de la tâche
 
-    public TacheCelluleController() {
+    public NotificationCelluleController() {
 
-        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("tache-cellule.fxml"));
+        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("notification-cellule.fxml"));
         loader.setController(this);
         try {
             loader.load();
@@ -115,46 +112,8 @@ public class TacheCelluleController extends ListCell<Tache> {
     }
 
     @FXML
-    protected void onConfirmerTacheButton() {
+    public void onSupprimerNotificationButton() {
 
-        Tache tacheModifiee = null;
-
-        if (tache.statut.equals(Statut.AFAIRE)) {
-
-            tacheModifiee = new Tache(tache.identifiant, tache.titre, tache.description, Statut.ENCOURS, tache.priorite, tache.echeance, tache.notification, tache.auteur);
-
-        } else if (tache.statut.equals(Statut.ENCOURS)) {
-
-            tacheModifiee = new Tache(tache.identifiant, tache.titre, tache.description, Statut.TERMINE, tache.priorite, tache.echeance, tache.notification, tache.auteur);
-
-        } else if (tache.statut.equals(Statut.TERMINE)) {
-
-            tacheModifiee = new Tache(tache.identifiant, tache.titre, tache.description, Statut.ENCOURS, tache.priorite, tache.echeance, tache.notification, tache.auteur);
-        }
-
-        if (tacheModifiee != null) {
-
-            MainApplication.jsonDAO.editerTache(tacheModifiee);
-
-        }
-
-    }
-
-    @FXML
-    protected void onEditerTacheButton() {
-
-        EditerTacheController.utilisateur = AccueilController.utilisateur;
-        EditerTacheController.tache = tache;
-
-        GestionScenes.chargerScene(FenetreDialogVue.EDITERTACHE, FenetreDialogVue.stage);
-
-        FenetreDialogVue.afficher();
-    }
-
-    @FXML
-    protected void onSupprimerTacheButton() {
-
-        MainApplication.jsonDAO.supprimerTache(tache);
-
+        MainApplication.jsonDAO.supprimerNotification(tache);
     }
 }

@@ -14,10 +14,11 @@ public class Tache {
     public String statut;
     public String priorite;
     public long echeance;
+    public long notification;
     public transient Utilisateur auteur;
 
     // Constructeur
-    public Tache(int identifiant, String titre, String description, String statut, String priorite, long echeance, Utilisateur auteur) {
+    public Tache(int identifiant, String titre, String description, String statut, String priorite, long echeance, long notification, Utilisateur auteur) {
 
         this.identifiant = identifiant;
         this.titre = titre;
@@ -25,6 +26,7 @@ public class Tache {
         this.statut = statut;
         this.priorite = priorite;
         this.echeance = echeance;
+        this.notification = notification;
         this.auteur = auteur;
     }
 
@@ -39,7 +41,7 @@ public class Tache {
         this.statut = tache.statut;
         this.priorite = tache.priorite;
         this.echeance = tache.echeance;
-
+        this.notification = tache.notification;
     }
 
 }

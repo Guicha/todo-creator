@@ -11,8 +11,6 @@ import javafx.scene.control.TextField;
 
 public class ConnexionController {
 
-    private JsonDAO jsonDAO = new JsonDAO(new DaoFactory());
-
     @FXML
     private TextField identifiantField;
 
@@ -29,7 +27,7 @@ public class ConnexionController {
 
             infoLabel.setText("");
 
-            Utilisateur utilisateur = jsonDAO.connexion(identifiantField.getText(), mdpField.getText());
+            Utilisateur utilisateur = MainApplication.jsonDAO.connexion(identifiantField.getText(), mdpField.getText());
 
             System.out.println("Connexion : " + utilisateur.identifiant);
 
@@ -50,7 +48,7 @@ public class ConnexionController {
 
             infoLabel.setText("");
 
-            Utilisateur utilisateur = jsonDAO.inscription(identifiantField.getText(), mdpField.getText());
+            Utilisateur utilisateur = MainApplication.jsonDAO.inscription(identifiantField.getText(), mdpField.getText());
 
             System.out.println("Inscription : " + utilisateur.identifiant);
 

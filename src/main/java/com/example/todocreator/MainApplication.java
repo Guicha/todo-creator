@@ -1,6 +1,8 @@
 package com.example.todocreator;
 
 import com.example.todocreator.Controleur.GestionScenes;
+import com.example.todocreator.DAO.DaoFactory;
+import com.example.todocreator.DAO.JsonDAO;
 import com.example.todocreator.Vue.FenetreDialogVue;
 import com.example.todocreator.Vue.FenetrePrincipaleVue;
 import javafx.application.Application;
@@ -12,6 +14,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainApplication extends Application {
+
+    public static JsonDAO jsonDAO = new JsonDAO(new DaoFactory());
 
     @Override
     public void start(Stage stage) throws IOException {

@@ -25,10 +25,10 @@ public class GestionScenes {
             width = 730;
             height = 244;
 
-        } else if (nomScene.equals(FenetreDialogVue.AJOUTERTACHE)) {
+        } else if (nomScene.equals(FenetreDialogVue.AJOUTERTACHE) || nomScene.equals(FenetreDialogVue.EDITERTACHE)) {
 
             width = 900;
-            height = 400;
+            height = 474;
         }
 
         try {

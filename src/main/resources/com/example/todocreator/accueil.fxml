@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ProgressIndicator?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1065.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.todocreator.Controleur.AccueilController">
    <top>
@@ -69,9 +69,11 @@
                                  </font>
                               </Button>
                               <VBox prefHeight="44.0" prefWidth="12.0" />
-                              <ComboBox fx:id="filtrerTachesPrincipalesComboBox" prefHeight="26.0" prefWidth="80.0" promptText="Filtrer" />
+                              <ComboBox fx:id="filtreTachesPrincipalesComboBox" onAction="#onFiltreTachesPrincipalesComboBox" prefHeight="26.0" prefWidth="80.0" promptText="Filtrer" />
                               <VBox layoutX="168.0" layoutY="10.0" prefHeight="44.0" prefWidth="12.0" />
-                              <ComboBox fx:id="trierTachesPrincipalesComboBox" prefHeight="26.0" prefWidth="80.0" promptText="Trier" />
+                              <ComboBox fx:id="triTachesPrincipalesComboBox" onAction="#onTriTachesPrincipalesComboBox" prefHeight="26.0" prefWidth="80.0" promptText="Trier" />
+                              <VBox prefHeight="44.0" prefWidth="12.0" />
+                              <ComboBox fx:id="prioriteTachesPrincipalesComboBox" onAction="#onPrioriteTachesPrincipalesComboBox" prefWidth="80.0" promptText="Prioriser" />
                            </children>
                         </HBox>
                      </top>
@@ -83,73 +85,68 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <SplitPane dividerPositions="0.5" prefHeight="624.8" prefWidth="709.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.5235465116279069" prefHeight="624.8" prefWidth="709.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <BorderPane prefHeight="624.8" prefWidth="348.0">
+                              <BorderPane prefHeight="625.0" prefWidth="368.0">
                                  <top>
                                     <HBox alignment="CENTER" prefHeight="44.0" prefWidth="348.0">
                                        <children>
-                                          <ComboBox prefHeight="26.0" prefWidth="80.0" promptText="Filtrer" />
+                                          <ComboBox fx:id="triTachesTermineesComboBox" onAction="#onTriTachesTermineesComboBox" prefHeight="26.0" prefWidth="80.0" promptText="Trier" />
                                           <VBox layoutX="168.0" layoutY="10.0" prefHeight="44.0" prefWidth="12.0" />
-                                          <ComboBox prefHeight="26.0" prefWidth="80.0" promptText="Trier" />
+                                          <ComboBox fx:id="prioriteTachesTermineesComboBox" onAction="#onPrioriteTachesTermineesComboBox" prefHeight="26.0" prefWidth="80.0" promptText="Prioriser" />
                                        </children>
                                     </HBox>
                                  </top>
                                  <center>
-                                    <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                    <ListView fx:id="tachesTermineesListView" prefHeight="581.0" prefWidth="583.0" styleClass="list-cell" stylesheets="@listView.css" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
                            </children>
                         </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="623.0" prefWidth="302.0">
                            <children>
                               <SplitPane dividerPositions="0.4990347490347489" orientation="VERTICAL" prefHeight="623.2" prefWidth="351.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                        <children>
-                                          <BorderPane prefHeight="308.0" prefWidth="349.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <top>
-                                                <VBox alignment="CENTER" prefHeight="44.0" prefWidth="350.0">
-                                                   <children>
-                                                      <ComboBox prefWidth="80.0" promptText="Filtrer" />
-                                                   </children>
-                                                </VBox>
-                                             </top>
-                                             <center>
-                                                <StackedBarChart BorderPane.alignment="CENTER">
-                                                  <xAxis>
-                                                    <CategoryAxis side="BOTTOM" />
-                                                  </xAxis>
-                                                  <yAxis>
-                                                    <NumberAxis side="LEFT" />
-                                                  </yAxis>
-                                                   <cursor>
-                                                      <Cursor fx:constant="CROSSHAIR" />
-                                                   </cursor>
-                                                </StackedBarChart>
-                                             </center>
-                                             <bottom>
-                                                <HBox alignment="CENTER" prefHeight="45.0" prefWidth="350.0" BorderPane.alignment="CENTER">
-                                                   <children>
-                                                      <ProgressBar prefWidth="200.0" progress="0.25" />
-                                                      <ProgressIndicator prefHeight="29.0" prefWidth="34.0" progress="0.25" />
-                                                   </children>
-                                                </HBox>
-                                             </bottom>
-                                          </BorderPane>
+                                          <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <tabs>
+                                                <Tab text="Calendrier">
+                                                  <content>
+                                                    <AnchorPane fx:id="calendrierAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <DatePicker fx:id="calendrierPermanentDatePicker" editable="false" layoutX="45.0" layoutY="26.0" styleClass="date-picker" />
+                                                         </children></AnchorPane>
+                                                  </content>
+                                                </Tab>
+                                                <Tab text="Statistiques">
+                                                   <content>
+                                                      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                         <children>
+                                                            <PieChart fx:id="statsPieChart" prefHeight="195.0" prefWidth="327.0" title="Répartition des taches" />
+                                                            <ProgressBar fx:id="statsProgressBar" layoutX="55.0" layoutY="233.0" prefWidth="200.0" progress="0.0" />
+                                                            <Text layoutX="86.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Progression des tâches">
+                                                               <font>
+                                                                  <Font name="Arial Black" size="12.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <ProgressIndicator fx:id="statsProgressIndicator" layoutX="262.0" layoutY="222.0" progress="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </Tab>
+                                             </tabs>
+                                          </TabPane>
                                        </children>
                                     </AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                        <children>
                                           <BorderPane prefHeight="308.8" prefWidth="349.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <center>
-                                                <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                                <ListView fx:id="notificationsListView" prefHeight="200.0" prefWidth="200.0" styleClass="list-cell" stylesheets="@listView.css" BorderPane.alignment="CENTER" />
                                              </center>
-                                             <right>
-                                                <ScrollBar orientation="VERTICAL" BorderPane.alignment="CENTER" />
-                                             </right>
                                           </BorderPane>
                                        </children>
                                     </AnchorPane>

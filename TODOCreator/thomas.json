@@ -1,0 +1,15 @@
+{
+  "identifiant": "thomas",
+  "mdp": "feur",
+  "chemin": "./TODOCreator/thomas.json",
+  "listeTaches": [
+    {
+      "identifiant": 1745842485,
+      "titre": "faire pipi",
+      "description": "ENORME CHIASSE",
+      "statut": "En cours",
+      "priorite": "Urgent",
+      "echeance": 2
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "identifiant": "entretien",
+  "mdp": "a",
+  "chemin": "./TODOCreator/entretien.json",
+  "listeTaches": [
+    {
+      "identifiant": 1747402563,
+      "titre": "Entretien",
+      "description": "n\u0027import quoi",
+      "statut": "En cours",
+      "priorite": "Normal",
+      "echeance": 1747487400,
+      "notification": 3600
+    },
+    {
+      "identifiant": 1747402768,
+      "titre": "test",
+      "description": "test",
+      "statut": "Terminé",
+      "priorite": "Normal",
+      "echeance": 1746576600,
+      "notification": 86400
+    }
+  ],
+  "listeNotifications": []
+}

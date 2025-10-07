@@ -11,6 +11,7 @@ public class Utilisateur {
     private String mdp;
     public String chemin;
     public ArrayList<Tache> listeTaches;
+    public ArrayList<Tache> listeNotifications;
 
     // Constructeur
     public Utilisateur(String identifiant, String mdp) {
@@ -19,6 +20,7 @@ public class Utilisateur {
         this.mdp = mdp;
         this.chemin = String.format("./TODOCreator/%s.json", this.identifiant);
         this.listeTaches = new ArrayList<>();
+        this.listeNotifications = new ArrayList<>();
     }
 
 

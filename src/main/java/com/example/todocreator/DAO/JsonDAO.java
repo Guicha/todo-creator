@@ -1,5 +1,6 @@
 package com.example.todocreator.DAO;
 
+import com.example.todocreator.Controleur.AccueilController;
 import com.example.todocreator.Modele.Exceptions.ChampsManquantsException;
 import com.example.todocreator.Modele.Exceptions.CompteExistantException;
 import com.example.todocreator.Modele.Exceptions.CompteInexistantException;
@@ -136,7 +137,10 @@ public class JsonDAO {
             utilisateur = new Utilisateur(identifiant, mdp);
 
             // On récupère toutes les tâches de l'utilisateur
-            utilisateur.listeTaches = this.getAll(utilisateur);
+            utilisateur.listeTaches = this.getAllTaches(utilisateur);
+
+            // On récupère toutes les notifications de l'utilisateur
+            utilisateur.listeNotifications = this.getAllNotifications(utilisateur);
 
         } catch (MdpIncorrectException mdpe) {
 
@@ -154,9 +158,9 @@ public class JsonDAO {
      * Méthode permettant de récupérer l'ensemble des tâches stockées dans le fichier de sauvegarde
      * @return La liste des tâches sauvegardées
      * **/
-    public ArrayList<Tache> getAll(Utilisateur utilisateur) {
+    public ArrayList<Tache> getAllTaches(Utilisateur utilisateur) {
 
-        // Création de la liste de stockage des tâches
+        // Création de la liste de stockage des tâches et de notifs
         ArrayList<Tache> listeTaches = new ArrayList<>();
 
         try {
@@ -186,7 +190,7 @@ public class JsonDAO {
 
                 entreeSauvegarde = tabJson.get(i).getAsJsonObject();
 
-                Tache tacheAjoutee = new Tache(entreeSauvegarde.get("identifiant").getAsInt(), entreeSauvegarde.get("titre").getAsString(), entreeSauvegarde.get("description").getAsString(), entreeSauvegarde.get("statut").getAsString(), entreeSauvegarde.get("priorite").getAsString(), entreeSauvegarde.get("echeance").getAsLong(), utilisateur);
+                Tache tacheAjoutee = new Tache(entreeSauvegarde.get("identifiant").getAsInt(), entreeSauvegarde.get("titre").getAsString(), entreeSauvegarde.get("description").getAsString(), entreeSauvegarde.get("statut").getAsString(), entreeSauvegarde.get("priorite").getAsString(), entreeSauvegarde.get("echeance").getAsLong(), entreeSauvegarde.get("notification").getAsLong(), utilisateur);
 
                 listeTaches.add(tacheAjoutee);
             }
@@ -198,6 +202,56 @@ public class JsonDAO {
         }
 
         return listeTaches;
+    }
+
+    /**
+     * Méthode permettant de récupérer l'ensemble des notifications stockées dans le fichier de sauvegarde
+     * @return La liste des notifications sauvegardées
+     * **/
+    public ArrayList<Tache> getAllNotifications(Utilisateur utilisateur) {
+
+        // Création de la liste de stockage des notifs
+        ArrayList<Tache> listeNotifications = new ArrayList<>();
+
+        try {
+
+            // Création du flux de données du fichier de sauvegarde
+            FileInputStream fis = new FileInputStream(utilisateur.chemin);
+
+            // Création du lecteur de JSON
+            JsonReader jsonReader = new JsonReader(new InputStreamReader(fis));
+
+            // On désérialise le fichier de sauvegarde dans un objet
+            JsonObject objJson = JsonParser.parseReader(jsonReader).getAsJsonObject();
+
+            if (objJson == null) {
+
+                return listeNotifications;
+            }
+
+            JsonArray tabJson = objJson.get("listeNotifications").getAsJsonArray();
+
+            // On crée un objet itératif permettant de stocker chaque entrée du fichier
+            JsonObject entreeSauvegarde;
+
+
+            // On remplit la liste de tâches
+            for (int i = 0; i< tabJson.size(); i++) {
+
+                entreeSauvegarde = tabJson.get(i).getAsJsonObject();
+
+                Tache notifAjoutee = new Tache(entreeSauvegarde.get("identifiant").getAsInt(), entreeSauvegarde.get("titre").getAsString(), entreeSauvegarde.get("description").getAsString(), entreeSauvegarde.get("statut").getAsString(), entreeSauvegarde.get("priorite").getAsString(), entreeSauvegarde.get("echeance").getAsLong(), entreeSauvegarde.get("notification").getAsLong(), utilisateur);
+
+                listeNotifications.add(notifAjoutee);
+            }
+
+
+        } catch (Exception e) {
+
+            System.out.println(e.getMessage());
+        }
+
+        return listeNotifications;
     }
 
     /**
@@ -213,6 +267,16 @@ public class JsonDAO {
 
             // On ajoute la tâche à la liste de tâches de l'utilisateur
             tache.auteur.listeTaches.add(tache);
+
+            // On rafraichit la liste des tâches affichées
+            AccueilController.updateListePrincipale();
+            AccueilController.updateListeTerminees();
+
+            // On refraichit les statistiques
+            AccueilController.updateStats();
+
+            // On rafraichait les notifications
+            //AccueilController.updateNotifications();
 
             // On écrit l'objet utilisateur dans le fichier
             dao.daoWriter(tache.auteur, tache.auteur.chemin);
@@ -236,12 +300,22 @@ public class JsonDAO {
             if (tacheSauvegardee.identifiant == tache.identifiant && tacheSauvegardee.auteur.identifiant.equals(tache.auteur.identifiant)) {
 
                 tacheSauvegardee.modifierTache(tache);
+
             }
         }
 
+        // On rafraichit la liste des tâches affichées
+        AccueilController.updateListePrincipale();
+        AccueilController.updateListeTerminees();
+
+        // On refraichit les statistiques
+        AccueilController.updateStats();
+
+        // On rafraichait les notifications
+        //AccueilController.updateNotifications();
+
         // On écrit les modifications sur le fichier
         dao.daoWriter(tache.auteur, tache.auteur.chemin);
-
     }
 
     /**
@@ -261,9 +335,85 @@ public class JsonDAO {
             }
         }
 
+        // On rafraichit la liste des tâches affichées
+        AccueilController.updateListePrincipale();
+        AccueilController.updateListeTerminees();
+
+        // On refraichit les statistiques
+        AccueilController.updateStats();
+
+        // On rafraichait les notifications
+        //AccueilController.updateNotifications();
+
         // On écrit les modifications sur le fichier
         dao.daoWriter(tache.auteur, tache.auteur.chemin);
     }
+
+    /**
+     * Méthode permettant d'enregistrer une notification dans le fichier de sauvegarde
+     * @param tache La notification à sauvegarder
+     * **/
+    public void ajouterNotification(Tache tache) {
+
+        try {
+
+            // On définit l'identifiant de la tâche
+            tache.identifiant = (int) (System.currentTimeMillis() / 1000);
+
+            // On ajoute la tâche à la liste de tâches de l'utilisateur
+            tache.auteur.listeNotifications.add(tache);
+
+            // On rafraichit la liste des tâches affichées
+            AccueilController.updateListePrincipale();
+            AccueilController.updateListeTerminees();
+
+            // On rafraichit les statistiques
+            AccueilController.updateStats();
+
+            // On rafraichit la liste des notifications
+            //AccueilController.updateNotifications();
+
+            // On écrit l'objet utilisateur dans le fichier
+            dao.daoWriter(tache.auteur, tache.auteur.chemin);
+
+        } catch (Exception e) {
+
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    /**
+     * Méthode permettant de supprimer une notification
+     * @param tache La notification à supprimer
+     * **/
+    public void supprimerNotification(Tache tache) {
+
+        // On supprime la tâche concernée
+        for (Tache notifsauvegardee : tache.auteur.listeNotifications) {
+
+            if (notifsauvegardee.identifiant == tache.identifiant && notifsauvegardee.auteur.identifiant.equals(tache.auteur.identifiant)) {
+
+                tache.auteur.listeNotifications.remove(notifsauvegardee);
+
+                break;
+            }
+        }
+
+        // On rafraichit la liste des tâches affichées
+        AccueilController.updateListePrincipale();
+        AccueilController.updateListeTerminees();
+
+        // On rafraichit les statistiques
+        AccueilController.updateStats();
+
+        // On rafraichit la liste des notifications
+        //AccueilController.updateNotifications();
+
+        // On écrit les modifications sur le fichier
+        dao.daoWriter(tache.auteur, tache.auteur.chemin);
+    }
+
 
     public static void main(String[] args) {
 
@@ -289,7 +439,7 @@ public class JsonDAO {
 
         jsonDAO.initUtilisateur(user);
 
-        Tache tache = new Tache(0,"faire pipi", "ENORME CHIASSE", Statut.ENCOURS, Priorite.URGENT, 2, user);
+        Tache tache = new Tache(0,"faire pipi", "ENORME CHIASSE", Statut.ENCOURS, Priorite.URGENT, 2, 3, user);
 
         jsonDAO.ajouterTache(tache);
 
