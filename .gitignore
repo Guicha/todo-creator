@@ -1,10 +1,6 @@
-.idea/
 .idea
-/.idea
-.mvn/
 .mvn
-/.mvn
 target/
-TODOCreator/
+TODOCreatorSaves
 mvnw
 mvnw.cmd

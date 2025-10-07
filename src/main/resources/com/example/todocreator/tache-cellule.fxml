@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane fx:id="anchorPane" minHeight="60.0" minWidth="300.0" prefWidth="320.0">
+          <children>
+            <Rectangle fx:id="statutRectangle" arcHeight="5.0" fill="#d16262" height="38.0" stroke="BLACK" strokeType="INSIDE" width="320.0" />
+            <HBox layoutX="10.0" layoutY="10.0">
+               <children>
+                    <Label fx:id="titreLabel" maxWidth="144.0" text="Titreaaaaaaaaaaaaaa">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="statutLabel" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="46.0" text="(Statut)">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Text fx:id="descriptionText" layoutX="12.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="270.0" />
+            <Button fx:id="confirmerTacheButton" layoutX="217.0" layoutY="5.0" mnemonicParsing="false" onAction="#onConfirmerTacheButton" prefHeight="18.0" prefWidth="32.0" text="✔" />
+            <Button fx:id="editerTacheButton" layoutX="251.0" layoutY="5.0" mnemonicParsing="false" onAction="#onEditerTacheButton" prefHeight="18.0" prefWidth="32.0" text="🖍" />
+            <Button fx:id="supprimerTacheButton" layoutX="285.0" layoutY="5.0" mnemonicParsing="false" onAction="#onSupprimerTacheButton" prefHeight="18.0" prefWidth="32.0" text="❌" />
+            <Label fx:id="prioriteLabel" layoutX="12.0" layoutY="48.0" text="Priorité ">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="echeanceLabel" layoutX="12.0" layoutY="66.0" text="Echéance">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+          </children>
+      </AnchorPane>
+   </center>
+   <bottom>
+      <VBox prefHeight="11.0" prefWidth="320.0" BorderPane.alignment="CENTER">
+         <children>
+            <Line endX="219.0" startX="-100.0" />
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
