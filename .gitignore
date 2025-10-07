@@ -1,4 +1,10 @@
+.idea/
 .idea
+/.idea
+.mvn/
 .mvn
-target
-TODOCreator
+/.mvn
+target/
+TODOCreator/
+mvnw
+mvnw.cmd
